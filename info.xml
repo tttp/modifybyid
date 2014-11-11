@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<extension key="eu.tttp.modifybyid" type="module">
+  <file>modifybyid</file>
+  <name>Modify a contact by ID</name>
+  <description>If you want to print a pdf to send to the contacts that don't have given their email, print their id and name, and link to civicrm/connect. It will allow them to modify their contact detail via a form</description>
+  <license>AGPL-3.0</license>
+  <maintainer>
+    <author>xavier</author>
+    <email>xavier@tttp.eu</email>
+  </maintainer>
+  <urls>
+    <url desc="Main Extension Page">http://FIXME</url>
+    <url desc="Documentation">http://FIXME</url>
+    <url desc="Support">http://FIXME</url>
+    <url desc="Licensing">http://www.gnu.org/licenses/agpl-3.0.html</url>
+  </urls>
+  <releaseDate>2014-10-28</releaseDate>
+  <version>1.0</version>
+  <develStage>alpha</develStage>
+  <compatibility>
+    <ver>4.4</ver>
+    <ver>4.5</ver>
+  </compatibility>
+  <comments>Developed for the musée</comments>
+  <civix>
+    <namespace>CRM/Modifybyid</namespace>
+  </civix>
+</extension>
