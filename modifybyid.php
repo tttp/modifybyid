@@ -28,7 +28,6 @@ function modifybyid_civicrm_postProcess($formName, &$form) {
   if ("CRM_Modifybyid_Form_Connect" != $formName) 
     return;
   $cid = $form["contact_id"];
-  $checksum = CRM_Contact_BAO_Contact_Utils::generateChecksum($cid);
   $url = "civicrm/profile/edit";//?gid=1&reset=1&id=4
   $url = CRM_Utils_System::url('civicrm/profile/edit','gid=1&reset=1&id='.$cid."&cs=".$checksum);
 die ($url);
