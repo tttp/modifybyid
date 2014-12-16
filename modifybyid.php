@@ -9,35 +9,28 @@ function modifybyid_civicrm_validate($formName, &$fields, &$files, &$form) {
     return;
   $cid = $fields["contact_id"];
   if (!$cid || !is_numeric ($cid)) { 
-    return array ("contact_id"=> "must be a number");//TODO Fix
+    //lw return array ("contact_id"=> "must be a number");//TODO Fix
+    return array ("contact_id"=> "doit être un nombre");//TODO Fix
   }
-  try {
-  $r=civicrm_api3 ("contact","getsingle", array("id"=>$cid, "contact_type"=> "Individual","return"=>"last_name"));
-  } catch (CiviCRM_API3_Exception $e) {
-    if ($count == 0)
-      return array ("contact_id"=> "Record not found, please verify the data");//TODO Fix
-    
-    print_r ($e);
+  $r=civicrm_api ("contact","getsingle", array("version"=>3,"id"=>$cid, "contact_type"=> "Individual","return"=>"last_name"));
+  if (array_key_exists ("is_error",$r)) {
+    return array ("contact_id"=> "Record not found, please verify the data");//TODO Fix
   }
-  if (strtolower($r["last_name"]) !== strtolower($fields["last_name"]))
-      return array ("last_name"=> "Record not found, please verify the last name", "contact_id" => "please verify the identifier");//TODO Fix
+  if (trim(strtolower($r["last_name"])) !== trim (strtolower($fields["last_name"])))
+      //lw return array ("last_name"=> "Record not found, please verify the last name", "contact_id" => "please verify the identifier");//TODO Fix
+      return array ("last_name"=> "Veuillez vérifier votre saisie", "contact_id" => "Veuillez vérifier votre saisie");//TODO Fix
 }
 
 
-function modifybyid_civicrm_postProcess($formName, &$form) {
+function aaamodifybyid_civicrm_postProcess($formName, &$form) {
   if ("CRM_Modifybyid_Form_Connect" != $formName) 
     return;
   $cid = $form["contact_id"];
   $url = "civicrm/profile/edit";//?gid=1&reset=1&id=4
+  $checksum = CRM_Contact_BAO_Contact_Utils::generateChecksum($cid);
   $url = CRM_Utils_System::url('civicrm/profile/edit','gid=1&reset=1&id='.$cid."&cs=".$checksum);
 die ($url);
 CRM_Utils_System::redirect($this->_destination);
-  print_r($r);
-
-print_r($fields);
-  die ($formName);
-
-  
 }
 
 /**

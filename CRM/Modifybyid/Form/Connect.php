@@ -14,21 +14,24 @@ class CRM_Modifybyid_Form_Connect extends CRM_Core_Form {
     $this->add(
       'text', // field type
       'last_name', // field name
-      ts('Last name'), // field label
+      //lw ts('Last name'), // field label
+      ts('Nom'), // field label
       null, // list of options
       true // is required
     );
     $this->add(
       'text', // field type
       'contact_id', // field name
-      ts('Identifier'), // field label
+      //lw ts('Identifier'), // field label
+      ts('Mot de passe'), // field label
       null, // list of options
       true // is required
     );
     $this->addButtons(array(
       array(
         'type' => 'submit',
-        'name' => ts('Submit'),
+        //lw 'name' => ts('Submit'),
+        'name' => ts('Valider'),
         'isDefault' => TRUE,
       ),
     ));
@@ -40,13 +43,15 @@ class CRM_Modifybyid_Form_Connect extends CRM_Core_Form {
 
   function postProcess() {
 
-    $values = $this->exportValues();
-print_r($values);
-    $options = $this->getColorOptions();
-    CRM_Core_Session::setStatus(ts('You picked color "%1"', array(
-      1 => $options[$values['favorite_color']]
-    )));
-    parent::postProcess();
+    $form = $this->exportValues();
+
+  $cid = $form["contact_id"];
+  $checksum = CRM_Contact_BAO_Contact_Utils::generateChecksum($cid);
+  $url = "civicrm/profile/edit";//?gid=1&reset=1&id=4
+  $url = CRM_Utils_System::url('civicrm/profile/edit','gid=1&reset=1&id='.$cid."&cs=".$checksum);
+
+  CRM_Utils_System::redirect($url);
+  parent::postProcess();
   }
 
 
